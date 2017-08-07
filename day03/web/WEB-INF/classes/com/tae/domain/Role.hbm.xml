@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!--配置类和表结构的映射-->
+    <class name="com.tae.domain.Role" table="sys_role">
+        <!--配置id
+                见到name属性，JavaBean的属性
+                见到column属性，是表结构的字段
+         -->
+        <id name="rid" column="rid">
+            <!--主键的生成策略-->
+            <generator class="native"/>
+        </id>
+        
+        <!--配置其他属性-->
+        <property name="rname" column="rname"/>
+
+        <!--配置多对多
+                多对多必须要有一方放弃外键的维护-->
+        <set name="users" table="sys_user_role" inverse="true">
+            <key column="rid"/>
+            <many-to-many class="com.tae.domain.User" column="uid"/>
+        </set>
+
+    </class>
+</hibernate-mapping>
